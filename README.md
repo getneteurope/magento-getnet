@@ -6,12 +6,13 @@
 
 1. Enter the initial path of your Magento 2 installation (root folder)
 2. Once inside please run the following commands one by one.
+```
 php bin/magento cache:disable
 php bin/magento setup:upgrade
 
 php bin/magento setup:di:compile
 phpbin/magentocache:enable
-
+```
 
 ## Configure the Payment module
 1. Go to Stores/Configuration/Sales/Payment Methods option

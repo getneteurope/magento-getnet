@@ -108,16 +108,24 @@ class CancelObserver implements ObserverInterface
          //           1 --> Test Mode activated
          if($test == '1'){ 
                    $url = 'https://api-test.getneteurope.com/engine/rest/payments/';
-    
+                   
+                   if($paymentMethod == 'sepadirectdebit'){
+                      $url = 'https://api-test.getneteurope.com/engine/rest/paymentmethods/'; 
+                   }
+            
          } else { //produccion
                    $url = 'https://api.getneteurope.com/engine/rest/payments/';
+                   
+                  if($paymentMethod == 'sepadirectdebit'){
+                      $url = 'https://api.getneteurope.com/engine/rest/paymentmethods/'; 
+                   }
          }
          
          
          
            ///////////////////////////////////////////////////////////////
            //////      Debit transactions are not canceled      /////////
-            if (str_contains($transactionType, 'debit')) {
+            if (str_contains($transactionType, 'debit') && ($paymentMethod  != 'sepadirectdebit') ) {
                 
                      if($dateTrx == $sysdate){ //Same day but is debit, You can not cancel
                             throw new \Magento\Framework\Exception\LocalizedException(__("The payment was with a debit card, cancellation not allowed"));
@@ -147,7 +155,7 @@ class CancelObserver implements ObserverInterface
                 
                 $this->logger->debug('Payment Method --> ' . $paymentMethod);
         
-                if($paymentMethod == 'alipay-xborder'){
+                if($paymentMethod == 'alipay-xborder' || $paymentMethod == 'sepadirectdebit'){
                    $varAmount = '"requested-amount": {
                                     "value": '.$amount.',
                                     "currency": "'.$currency.'"
@@ -178,7 +186,7 @@ class CancelObserver implements ObserverInterface
                
     
     
-                $this->logger->debug($xml);  
+//                $this->logger->debug($xml);  
                     
                 try {
                     $credentials = base64_encode( $username . ':' . $password);
@@ -209,9 +217,10 @@ class CancelObserver implements ObserverInterface
                 $order->save();
                       
             } else {
-                $order->addStatusToHistory('processing',__('Fail to Cancel'), false);
-                $order->save();
-                throw new \Magento\Framework\Exception\LocalizedException(__("Technical error in the cancellation"));
+//                $this->messageManager->addSuccessMessage(__('Fail to Cancel '));
+//                $order->addStatusToHistory('processing',__('Fail to Cancel'), false);
+//                $order->save();
+                throw new \Magento\Framework\Exception\LocalizedException(__("Fail to Cancel"));
             }
 
       }
@@ -268,6 +277,14 @@ class CancelObserver implements ObserverInterface
                         } else {
                             $NewtransactionType = 'refund-capture';
                         }
+            }
+            
+        } else if($paymentMethod  == 'sepadirectdebit'){
+            if($transactionType == 'pending-debit'){
+                $NewtransactionType = 'void-pending-debit';
+                
+            } else if($transactionType == 'pending-credit'){
+                $NewtransactionType = 'void-pending-credit';
             }
         
         } else if($paymentMethod  == 'alipay-xborder'){

@@ -408,7 +408,6 @@ $params = '{
                 "street1": "'.$street_bil.'",
                 "city": "'.$city_bil.'",
                 "postal-code": "'.$postCode_bil.'",
-                "state": "'.$region_bil.'",  
                 "country": "'.$country_bil.'"
             }
         },
@@ -418,7 +417,6 @@ $params = '{
                 "street1": "'.$street_ship.'",
                 "city": "'.$city_ship.'",
                 "postal-code": "'.$postCode_ship.'",
-                "state": "'.$region_ship.'",  
                 "country": "'.$country_ship.'"
             },
             "email": "'.$email.'"
@@ -448,6 +446,8 @@ $params = '{
             $this->logger->debug($params);
         /////////////////////////////////////////////////////
 */
+
+
 
           try {
             $this->_curl->setCredentials($username, $password);

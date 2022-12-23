@@ -150,7 +150,7 @@ class Refund extends \Magento\Framework\App\Action\Action
                 
                 $this->logger->debug('Payment Method --> ' . $paymentMethod);
         
-            if($paymentMethod == 'sofortbanking' || $paymentMethod == 'alipay-xborder' || $paymentMethod == 'ideal' || $paymentMethod == 'sepadirectdebit'){
+            if($paymentMethod == 'sofortbanking' || $paymentMethod == 'alipay-xborder' || $paymentMethod == 'ideal' || $paymentMethod == 'sepadirectdebit' || $paymentMethod == 'blik'){
                $varAmount = '"requested-amount": {
                                 "value": '.$amount.',
                                 "currency": "'.$currency.'"
@@ -182,7 +182,7 @@ class Refund extends \Magento\Framework\App\Action\Action
                     "system-name":"Magento",
                     "system-version":"'.$magentoVersion.'",
                     "plugin-name":"Magento_getnet_plugin",
-                    "plugin-version":"1.0.0",
+                    "plugin-version":"1.0.5",
                     "integration-type":"redirect"
                 },';    
             
@@ -239,7 +239,7 @@ class Refund extends \Magento\Framework\App\Action\Action
                     $this->_curl->post($url, $xml);
                     $response = $this->_curl->getBody();
                       
-                     $this->logger->debug($response);  
+                 //    $this->logger->debug($response);  
                 } catch (\Magento\Framework\Exception\Exception $e) {
                      $this->logger->debug('Error Refund');
                 }
@@ -369,7 +369,7 @@ class Refund extends \Magento\Framework\App\Action\Action
         } else if($paymentMethod  == 'p24'){
                         $newtransactionType= 'refund-request';
         
-        } else if($paymentMethod  == 'blik'){ //review word
+        } else if($paymentMethod  == 'blik'){
                         $newtransactionType= 'refund-debit';
         }
         

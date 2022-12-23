@@ -425,7 +425,7 @@ $params = '{
          "system-name":"Magento",
          "system-version":"'.$magentoVersion.'",
          "plugin-name":"Magento_getnet_plugin",
-         "plugin-version":"1.0.0",
+         "plugin-version":"1.0.5",
          "integration-type":"redirect"
         },
         '.$creditorID.'
@@ -446,8 +446,6 @@ $params = '{
             $this->logger->debug($params);
         /////////////////////////////////////////////////////
 */
-
-
 
           try {
             $this->_curl->setCredentials($username, $password);

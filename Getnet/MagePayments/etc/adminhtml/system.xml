@@ -5,7 +5,7 @@
             <group id="paymagento" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Getnet</label>
                  <comment>
-                    <![CDATA[v1.0.3 ]]>
+                    <![CDATA[v1.0.5 ]]>
                 </comment>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
                     <label>Activate</label>

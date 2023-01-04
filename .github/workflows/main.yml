@@ -26,3 +26,4 @@ jobs:
         artifacts: "magento-getnet.zip"
         token: ${{ secrets.GITHUB_TOKEN }}
         allowUpdates: true
+        body: "release of magento-getnet"

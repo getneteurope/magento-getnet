@@ -14,12 +14,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-    - name: Archive 
-      uses: thedoctor0/zip-release@main
-      with:
-        type: 'zip'
-        filename: 'magento-getnet.zip'
-        exclusions: '*.git* LICENSE README.md'
     - name: Publish
       uses: ncipollo/release-action@v1
       with:
